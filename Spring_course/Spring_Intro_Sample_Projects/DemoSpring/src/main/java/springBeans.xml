@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       xmlns:context="http://www.springframework.org/schema/context">
+       
+	<bean id="shape" class="shapes.Triangle" init-method="myInit" destroy-method="myDestroy" autowire="byName">
+		<!-- <constructor-arg index="0" value="abc" /> -->
+		<!-- <constructor-arg index="1" ref="circle" /> -->
+		<property name="type" value="${triangle}" />
+		<!-- <property name="circle" ref="circleObject" /> -->
+	</bean>
+	
+	<!-- <bean id="circle" class="shapes.Circle" init-method="myInit" destroy-method="myDestroy">
+	</bean>
+	<bean id="circle2" class="shapes.Circle" init-method="myInit" destroy-method="myDestroy">
+	</bean> -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames" value="my-messages" />
+	</bean>
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" >
+		<property name="locations" value="classpath:shapeValues.properties" />
+	</bean>
+	<!--  <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" /> -->
+	<context:annotation-config />
+	<context:component-scan base-package="shapes" />
+</beans>
